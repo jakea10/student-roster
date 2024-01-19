@@ -8,7 +8,7 @@ class Student:
     def __init__(self, firstName: str, lastName: str, emailAddress: str, dateOfBirth: date) -> None:
         self.__firstName = firstName
         self.__lastName = lastName
-        if self.emailIsValid(emailAddress):
+        if self.isValidEmail(emailAddress):
             self.__emailAddress = emailAddress
         else:
             raise ValueError(f"Invalid email address: '{emailAddress}'")
@@ -46,7 +46,7 @@ class Student:
         print(f"\tDOB: {self.__dateOfBirth}", end="")
         print(f"\tEmail: {self.__emailAddress}")
 
-    def emailIsValid(self, emailAddress: str) -> bool:
+    def isValidEmail(self, emailAddress: str) -> bool:
         # It should be a string
         if type(emailAddress) != str:
             return False
