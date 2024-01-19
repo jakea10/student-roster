@@ -6,13 +6,27 @@ class Student:
 
     # Constructor
     def __init__(self, firstName: str, lastName: str, emailAddress: str, dateOfBirth: date) -> None:
-        self.__firstName = firstName
-        self.__lastName = lastName
+        if self.isValidName(firstName):
+            self.__firstName = firstName
+        else:
+            raise ValueError(f"Invalid name: '{firstName}'")
+
+        if self.isValidName(lastName):
+            self.__lastName = lastName
+        else:
+            raise ValueError(f"Invalid name: '{lastName}'")
+        
         if self.isValidEmail(emailAddress):
             self.__emailAddress = emailAddress
         else:
             raise ValueError(f"Invalid email address: '{emailAddress}'")
-        self.__dateOfBirth = dateOfBirth
+        
+        if type(dateOfBirth) == date:
+            self.__dateOfBirth = dateOfBirth
+        else:
+            raise ValueError(f"Invalid date: '{dateOfBirth}'")
+        
+        self.__courses = []
 
     # Getters
     def getFirstName(self) -> str:
@@ -46,6 +60,18 @@ class Student:
         print(f"\tDOB: {self.__dateOfBirth}", end="")
         print(f"\tEmail: {self.__emailAddress}")
 
+    # Helpers
+    def isValidName(self, name: str) -> bool:
+        # It should be a string
+        if type(name) != str:
+            return False
+        
+        # It should have at least one letter
+        if len(name) < 1:
+            return False
+        
+        return True
+
     def isValidEmail(self, emailAddress: str) -> bool:
         # It should be a string
         if type(emailAddress) != str:
@@ -59,4 +85,3 @@ class Student:
         # and it should not the first or last character
         index = emailAddress.find('@')
         return index > 0 and index != (len(emailAddress) - 1) and (emailAddress.count('@') == 1)
-
