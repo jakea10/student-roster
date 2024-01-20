@@ -1,5 +1,6 @@
 from datetime import date
 import re
+from course import Course
 
 
 class Student:
@@ -56,9 +57,23 @@ class Student:
 
     # Other
     def print(self) -> None:
-        print(f"Name: {self.__firstName} {self.__lastName},", end="")
-        print(f"\tDOB: {self.__dateOfBirth}", end="")
-        print(f"\tEmail: {self.__emailAddress}")
+        print(f"Name: {self.__firstName} {self.__lastName}")
+        print(f"- DOB: {self.__dateOfBirth}")
+        print(f"- Email: {self.__emailAddress}")
+        if len(self.__courses) > 0:
+            self.printCourses()
+
+    def addCourse(self, course: Course) -> None:
+        if type(course) != Course:
+            raise ValueError("Invalid course")
+        
+        self.__courses.append(course)
+
+    def printCourses(self) -> None:
+        print("- Courses:")
+        for course in self.__courses:
+            print("  * ", end="")
+            course.print()
 
     # Helpers
     def isValidName(self, name: str) -> bool:
